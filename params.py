@@ -4,7 +4,7 @@ class Params():
     data_size = -1 # -1 to use all data
     num_epochs = 100
     train_prop = 0.9 # Not implemented atm
-    data_dir = "./data/"
+    data_dir = "./mData/"
     train_dir = data_dir + "trainset/"
     dev_dir = data_dir + "devset/"
     logdir = "./train/train"

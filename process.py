@@ -105,7 +105,7 @@ class data_loader(object):
                 f.write("%s: %s" % (key, value) + "\n")
 
     def loop(self, data, dir_ = Params.train_dir):
-        for topic in data['data']:
+        for topic in data:
             for para in topic['paragraphs']:
 
                 words_c,chars_c = self.add_to_dict(para['context'])
@@ -117,7 +117,7 @@ class data_loader(object):
                     words,chars = self.add_to_dict(question)
                     if len(words) >= Params.max_q_len:
                         continue
-                    ans = qas['answers'][0]
+                    ans = qas['answers']
                     ans_ids,_ = self.add_to_dict(ans['text'])
                     (start_i, finish_i) = find_answer_index(words_c, ans_ids)
                     if start_i == -1:
@@ -308,8 +308,8 @@ def max_value(inputlist):
 def main():
     with open(Params.data_dir + 'dictionary.pkl','wb') as dictionary:
     	loader = data_loader(use_pretrained = True)
-    	loader.process_json(Params.data_dir + "train-v1.1.json", out_dir = Params.train_dir)
-    	loader.process_json(Params.data_dir + "dev-v1.1.json", out_dir = Params.dev_dir)
+    	loader.process_json(Params.data_dir + "train.json", out_dir = Params.train_dir)
+    	loader.process_json(Params.data_dir + "dev.json", out_dir = Params.dev_dir)
     	pickle.dump(loader, dictionary, pickle.HIGHEST_PROTOCOL)
     print("Tokenizing completed successfully")
     if os.path.isfile(Params.data_dir + "glove.np"): exit()
